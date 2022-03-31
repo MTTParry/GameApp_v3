@@ -12,8 +12,9 @@ const LetterButtons = () => {
         <button 
           className="letter-buttons"
           key={letter}
-          value={letter}>
-        {letter}
+          value={letter}
+          >
+            <b>{letter}</b>
         </button>
         ))
       }    

@@ -43,7 +43,7 @@ const Form = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             <fieldset>
-                <label>First Name</label>
+                <label>Your name</label>
                 <input
                     type="text"
                     id="add-user-name"
