@@ -1,5 +1,5 @@
 import "./App.css";
-import Hangman from "./components/Hangman";
+import Hangman from "./components/Dunkman";
 import Header from "./components/Header";
 
 function App() {

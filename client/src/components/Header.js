@@ -5,8 +5,17 @@ const Header = () => {
     <div>
       <h1>Dunk-Person</h1>
       <hr/>
-      <h2>Figure out the word </h2>
-      <p> Click a letter to guess it</p>
+      <ul className="rules">
+        <h2>Figure out the word </h2>
+        <li>Click a letter to guess it</li>
+        <li>Up to 5 incorrect guess</li>
+        <li>6 incorrect means you lose!</li>
+        <li>Each incorrect guess is -5 points</li>
+        <li>Each correct guess is +5 points, per instance
+          <br/>
+          <i>example: 'L' for hello would get 10 points</i>
+        </li>
+      </ul>
       <hr/>
     </div>
   )

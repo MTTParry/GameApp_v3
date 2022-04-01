@@ -82,6 +82,7 @@ function Hangman() {
   function handleResetClick() {
     setGuessed(initialGuesses);
     fetchWord();
+    setScore(initialScore);
   }
 
   // lose condition

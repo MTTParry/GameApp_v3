@@ -67,11 +67,15 @@ fieldset {
 .scoreboard {
   border-style: groove;
   border-color: #f2faa7;
-  background-color: #f2faa750;
+  background-color: #faf2a7;
   width: 70%;
   margin: 2% 15%;
 }
 
 h3 {
   text-decoration: underline;
+}
+
+.rules {
+  list-style-position: inside;
 }
