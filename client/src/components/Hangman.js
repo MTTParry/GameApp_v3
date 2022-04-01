@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LetterButtons from "./LetterButtons";
+import ScoreBoard from "./ScoreBoard";
 
 const initialWord = "";
 
@@ -11,6 +12,8 @@ const initialGuesses = splitLetters.reduce((result, value) => {
 }, {});
 
 const maxIncorrectGuess = 6;
+
+const initialScore = 0;
 
 function makeDisplayString(theWord, guesses) {
   return theWord
@@ -41,6 +44,7 @@ function countIncorrectGuess(guesses) {
 function Hangman() {
   const [word, setWord] = useState(initialWord);
   const [guessed, setGuessed] = useState(initialGuesses);
+  const [score, setScore] = useState(initialScore);
 
   console.log(initialGuesses);
 
@@ -57,29 +61,12 @@ function Hangman() {
 
   useEffect(fetchWord, []);
 
-  // let tempWord = word;
-  // console.log("Tempword=", tempWord);
-  // console.log(typeof tempWord);
-  // figuring out how to actually have the game function
-
-  // need to update this via LetterButtons component
-
   console.log("Word =>", word);
   console.log("Guessed array:", guessed);
   // console.log("Word.length =>", word.word.length);
 
-  // function to compare guessedLetters to {word.word}
-  // function updateWord(tempWord) {
-
-  //   for (let i = 0; i < tempWord.length; i++) {
-  //     console.log("yo");
-  //   }
-
-  //   //Updates wordState to reflect correct guesses
-  // }
-
-  // updateWord();
-
+  // takes in guess and sets them to true (they can't be guessed again)
+  // checks for correctness
   function addGuess(letter) {
     setGuessed((guessed) => {
       return {
@@ -88,6 +75,7 @@ function Hangman() {
       };
     });
     console.log(letter);
+    scoreCalculator();
   }
 
   //reset button
@@ -96,6 +84,7 @@ function Hangman() {
     fetchWord();
   }
 
+  // lose condition
   let incorrect = countIncorrectGuess(guessed);
   let guessDiv;
   if (incorrect >= maxIncorrectGuess) {
@@ -108,9 +97,32 @@ function Hangman() {
     );
   }
 
+  // win condition
+
+  // score
+  // -5 for each wrong guess
+  // if (incorrect > 0) {
+  //   setScore(score - (5));
+  // }
+  // +5 for each correct letter
+  let tempStr = makeDisplayString(word, guessed);
+  function scoreCalculator() {
+    for (let i = 0; i < tempStr.length; i++) {
+      if (tempStr[i] !== " _ ") {
+        setScore(score + 5);
+      }
+    }
+    return score;
+  }
+
+  // display high scores
+
   return (
     <div>
-      <div>{makeDisplayString(word, guessed)}</div>
+      <div className="gameDisplay">{makeDisplayString(word, guessed)}</div>
+      <br />
+      Current score: {score}
+      <br />
       {guessDiv}
       <br />
       <fieldset>
@@ -126,8 +138,12 @@ function Hangman() {
             );
           })}
         </form>
-        <button onClick={handleResetClick}>Reset</button>
+        <br />
+        <button className="reset-btn" onClick={handleResetClick}>
+          Reset
+        </button>
       </fieldset>
+      <ScoreBoard />
     </div>
   );
 }

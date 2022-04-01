@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #e5fcf5;
+  font-size: larger;
 }
 
 code {
@@ -18,14 +19,16 @@ code {
   padding: 5px 10px;
   color: #373849;
   background-color: #d0d3fa;
+  font-weight: bolder;
 }
 
 .letter-buttons.correct {
-  background-color: green;
+  background-color: #159c74;
 }
 
 .letter-buttons.incorrect {
-  background-color: red;
+  background-color: #861804;
+  color: #c4a3a3;
 }
 
 .letter-buttons:hover {
@@ -34,10 +37,41 @@ code {
   background-color: #7bd8fd;
 }
 
+.reset-btn {
+  margin: 5px;
+  padding: 5px 10px;
+  color: #fcf7fd;
+  background-color: #f80202;
+  font-weight: bolder;
+}
+
 fieldset {
-  padding: 20px;
+  padding: 20px 20px 20px 20px;
   border: none;
   background-color: #2ac495;
   width: 100%;
   margin: 0;
+}
+
+.gameDisplay {
+  font-size: 24pt;
+  color: #7605aa;
+}
+
+.scoreboardlist {
+  padding: 0% 10% 0% 10%;
+  list-style-type: upper-roman;
+  list-style-position: inside;
+}
+
+.scoreboard {
+  border-style: groove;
+  border-color: #f2faa7;
+  background-color: #f2faa750;
+  width: 70%;
+  margin: 2% 15%;
+}
+
+h3 {
+  text-decoration: underline;
 }
