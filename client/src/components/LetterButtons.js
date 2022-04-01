@@ -1,7 +1,6 @@
 const LetterButtons = (props) => {
-  let letters = "abcdefghijklmnopqrstuvwxyz";
-  let splitLetters = letters.toUpperCase().split("");
-
+  const letter = props.letter;
+  const guessed = props.guessed;
   // button onClick=> add to guessedLetters Array and send that back up to the parent
   // guessed letters will be used to identify letters that are in the word
   // if guessedLetter does not match a letter in the array:
@@ -15,26 +14,20 @@ const LetterButtons = (props) => {
       console.log("You didn't pass in a function");
       return;
     }
-    console.log(e);
-    props.callback(e);
+    console.log(e.target.value);
+    props.callback(e.target.value);
   };
 
   //Listing Letters
   return (
-    <div>
-      {splitLetters.map((letter) => (
-        <button
-          className="letter-buttons"
-          key={letter}
-          value={letter}
-          onClick={(e) => {
-            handleButtonClick(letter);
-          }}
-        >
-          <b>{letter}</b>
-        </button>
-      ))}
-    </div>
+    <input
+      type="button"
+      className="letter-buttons"
+      key={letter}
+      value={letter}
+      disabled={guessed}
+      onClick={handleButtonClick}
+    />
   );
 };
 
