@@ -18,11 +18,18 @@ const LetterButtons = (props) => {
     props.callback(e.target.value);
   };
 
+  let className = "letter-buttons";
+  if (props.correct === true) {
+    className += " correct";
+  } else if (props.correct === false) {
+    className += " incorrect";
+  }
+
   //Listing Letters
   return (
     <input
       type="button"
-      className="letter-buttons"
+      className={className}
       key={letter}
       value={letter}
       disabled={guessed}

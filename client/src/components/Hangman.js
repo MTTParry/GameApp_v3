@@ -7,20 +7,35 @@ const letters = "abcdefghijklmnopqrstuvwxyz";
 const splitLetters = letters.toUpperCase().split("");
 
 const initialGuesses = splitLetters.reduce((result, value) => {
-  return { ...result, [value]: false };
+  return { ...result, [value]: { guess: false, correct: null } };
 }, {});
+
+const maxIncorrectGuess = 6;
 
 function makeDisplayString(theWord, guesses) {
   return theWord
     .toUpperCase()
     .split("")
     .map((char) => {
-      if (guesses[char]) {
+      if (guesses[char].guess) {
         return char;
       } else {
         return " _ ";
       }
     });
+}
+
+function checkGuess(theWord, guess) {
+  return theWord.toUpperCase().includes(guess);
+}
+
+// reduces array into a sum
+// will return # of incorrect guesses
+function countIncorrectGuess(guesses) {
+  return Object.keys(guesses).reduce((count, letter) => {
+    const guess = guesses[letter];
+    return count + (guess.correct === false ? 1 : 0);
+  }, 0);
 }
 
 function Hangman() {
@@ -67,7 +82,10 @@ function Hangman() {
 
   function addGuess(letter) {
     setGuessed((guessed) => {
-      return { ...guessed, [letter]: true };
+      return {
+        ...guessed,
+        [letter]: { guess: true, correct: checkGuess(word, letter) },
+      };
     });
     console.log(letter);
   }
@@ -78,9 +96,22 @@ function Hangman() {
     fetchWord();
   }
 
+  let incorrect = countIncorrectGuess(guessed);
+  let guessDiv;
+  if (incorrect >= maxIncorrectGuess) {
+    guessDiv = <div>You lost!</div>;
+  } else {
+    guessDiv = (
+      <div>
+        Incorrect Guesses: {incorrect}/{maxIncorrectGuess}
+      </div>
+    );
+  }
+
   return (
     <div>
       <div>{makeDisplayString(word, guessed)}</div>
+      {guessDiv}
       <br />
       <fieldset>
         <form>
@@ -89,7 +120,8 @@ function Hangman() {
               <LetterButtons
                 callback={addGuess}
                 letter={letter}
-                guessed={guessed[letter]}
+                guessed={guessed[letter].guess}
+                correct={guessed[letter].correct}
               />
             );
           })}
